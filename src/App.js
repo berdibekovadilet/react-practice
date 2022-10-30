@@ -1,12 +1,16 @@
-import Counter from "./components/Counter";
-import Form from "./components/Form";
+import PostItem from "./components/PostItem";
 import "./styles/App.css";
 
 function App() {
   return (
     <div className="App">
-      <Counter />
-      <Form />
+      <PostItem
+        post={{
+          id: 1,
+          title: "JavaScript",
+          body: "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили.",
+        }}
+      />
     </div>
   );
 }
