@@ -22,7 +22,7 @@ function App() {
   ]);
   return (
     <div className="App">
-      <PostList posts={posts} />
+      <PostList posts={posts} title="Список Постов" />
     </div>
   );
 }
