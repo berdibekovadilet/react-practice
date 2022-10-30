@@ -27,6 +27,17 @@
   display: flex;
 }
 
+.post__btns button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .post-enter {
   transform: translateX(-350px);
 }

@@ -1,16 +1,10 @@
-import PostItem from "./components/PostItem";
+import PostList from "./components/PostList";
 import "./styles/App.css";
 
 function App() {
   return (
     <div className="App">
-      <PostItem
-        post={{
-          id: 1,
-          title: "JavaScript",
-          body: "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили.",
-        }}
-      />
+      <PostList />
     </div>
   );
 }
