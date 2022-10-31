@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import PostService from "./API/PostService";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -20,10 +20,8 @@ function App() {
   };
 
   async function fetchPosts() {
-    const responce = await axios.get(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    setPosts(responce.data);
+    const posts = await PostService.getAll();
+    setPosts(posts);
   }
   useEffect(() => {
     console.log("USE EFFECT");
