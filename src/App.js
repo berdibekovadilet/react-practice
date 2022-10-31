@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
+import MySelect from "./components/UI/select/MySelect";
 import "./styles/App.css";
 
 function App() {
@@ -8,19 +9,21 @@ function App() {
     {
       id: 1,
       title: "JavaScript",
-      body: "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили.",
+      body: "JavaScript — мультипарадигменный язык программирования.",
     },
     {
       id: 2,
-      title: "Phyton",
-      body: "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили.",
+      title: "Python",
+      body: "222 — высокоуровневый язык программирования общего назначения.",
     },
     {
       id: 3,
-      title: "Php",
-      body: "JavaScript — мультипарадигменный язык программирования. Поддерживает объектно-ориентированный, императивный и функциональный стили.",
+      title: "111",
+      body: "Php — C-подобный скриптовый язык общего назначения.",
     },
   ]);
+
+  const [selectedSort, setSelectedSort] = useState("");
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -30,9 +33,32 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
+  const sortPosts = (sort) => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare(b[sort])));
+  };
+
   return (
     <div className="App">
       <PostForm create={createPost} />
+      <hr style={{ margin: "15px 0" }} />
+      <div>
+        <MySelect
+          value={selectedSort}
+          onChange={sortPosts}
+          defaultValue="Сортировка"
+          options={[
+            {
+              value: "title",
+              name: "По названию",
+            },
+            {
+              value: "body",
+              name: "По описанию",
+            },
+          ]}
+        />
+      </div>
       {posts.length ? (
         <PostList remove={removePost} posts={posts} title="Список Постов" />
       ) : (
