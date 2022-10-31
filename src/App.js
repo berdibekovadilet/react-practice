@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -8,23 +9,7 @@ import "./styles/App.css";
 import { usePosts } from "./useHooks/usePosts";
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      title: "JavaScript",
-      body: "JavaScript — мультипарадигменный язык программирования.",
-    },
-    {
-      id: 2,
-      title: "Python",
-      body: "222 — высокоуровневый язык программирования общего назначения.",
-    },
-    {
-      id: 3,
-      title: "111",
-      body: "Php — C-подобный скриптовый язык общего назначения.",
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
@@ -33,6 +18,17 @@ function App() {
     setPosts([...posts, newPost]);
     setModal(false);
   };
+
+  async function fetchPosts() {
+    const responce = await axios.get(
+      "https://jsonplaceholder.typicode.com/posts"
+    );
+    setPosts(responce.data);
+  }
+  useEffect(() => {
+    console.log("USE EFFECT");
+    fetchPosts();
+  }, []);
 
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
