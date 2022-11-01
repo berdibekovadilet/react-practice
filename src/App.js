@@ -6,10 +6,11 @@ import PostList from "./components/PostList";
 import MyButton from "./components/UI/button/MyButton";
 import Loader from "./components/UI/loader/Loader";
 import MyModal from "./components/UI/myModal/MyModal";
+import Pagination from "./components/UI/pagination/Pagination";
 import "./styles/App.css";
 import { useFetching } from "./useHooks/useFetching";
 import { usePosts } from "./useHooks/usePosts.js";
-import { getPageCount, getPagesArray } from "./utils/pages";
+import { getPageCount } from "./utils/pages";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -20,7 +21,6 @@ function App() {
   const [page, setPage] = useState(1);
 
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-  let pagesArray = getPagesArray(totalPages);
 
   const [fetchPosts, isPostsLoading, postError] = useFetching(
     async (limit, page) => {
@@ -78,17 +78,7 @@ function App() {
           title="Список Постов"
         />
       )}
-      <div className="page__wrapper">
-        {pagesArray.map((p) => (
-          <span
-            onClick={() => changePage(p)}
-            className={page === p ? "page page__current" : "page"}
-            key={p}
-          >
-            {p}
-          </span>
-        ))}
-      </div>
+      <Pagination page={page} totalPages={totalPages} changePage={changePage} />
     </div>
   );
 }
