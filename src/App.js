@@ -1,8 +1,7 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
 import Navbar from "./components/UI/navbar/Navbar";
-import About from "./pages/About";
-import Error from "./pages/Error";
-import Posts from "./pages/Posts";
+
 import "./styles/App.css";
 
 function App() {
@@ -10,18 +9,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <div className="App">
-        <Switch>
-          <Route path="/posts">
-            <Posts />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/error">
-            <Error />
-          </Route>
-          <Redirect to="/error" />
-        </Switch>
+        <AppRouter />
       </div>
     </BrowserRouter>
   );
