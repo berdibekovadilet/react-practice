@@ -23,7 +23,7 @@ function Posts() {
   const [fetchPosts, isPostsLoading, postError] = useFetching(
     async (limit, page) => {
       const response = await PostService.getAll(limit, page);
-      setPosts([...posts, ...response.data]);
+      setPosts(response.data);
       const totalCount = response.headers["x-total-count"];
       setTotalPages(getPageCount(totalCount, limit));
     }
@@ -57,7 +57,12 @@ function Posts() {
         <PostForm create={createPost} />
       </MyModal>
       {postError && <h2>Произошла ошибка {postError}</h2>}
-      {isPostsLoading ? (
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Список Постов"
+      />
+      {isPostsLoading && (
         <div
           style={{
             display: "flex",
@@ -67,12 +72,6 @@ function Posts() {
         >
           <Loader />
         </div>
-      ) : (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Список Постов"
-        />
       )}
       <Pagination page={page} totalPages={totalPages} changePage={changePage} />
     </div>
